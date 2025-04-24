@@ -1,0 +1,145 @@
+/* Import a pixelated/monospaced font */
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap'); /* Example: VT323 */
+
+body {
+    background-color: #111; /* Dark background outside the monitor */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    overflow: hidden; /* Hide scrollbars if monitor fills screen */
+    font-family: 'VT323', monospace; /* Apply CRT font */
+}
+
+.crt-monitor {
+    background-color: #333; /* Bezel color */
+    padding: 30px; /* Size of the bezel */
+    border-radius: 25px / 40px; /* Simple bezel curve */
+    box-shadow:
+            inset 0 0 15px rgba(0, 0, 0, 0.7), /* Inner shadow for depth */
+            0 10px 20px rgba(0, 0, 0, 0.5);   /* Outer shadow for lift */
+    width: 50vw; /* Adjust width as needed */
+    max-width: 900px; /* Max width */
+    aspect-ratio: 4 / 3; /* Classic monitor aspect ratio */
+    position: relative; /* Needed for pseudo-elements */
+    overflow: hidden; /* Hide screen overflow */
+}
+
+.screen {
+    background-color: #000; /* Black screen background */
+    color: #00FF41; /* Classic green phosphor color */
+    /* You could use #FF9900 for Amber */
+    padding: 20px;
+    height: 100%; /* Fill the monitor frame */
+    box-sizing: border-box; /* Include padding in height/width */
+    font-size: 18px; /* Adjust font size */
+    line-height: 1.4;
+    overflow-y: auto; /* Allow scrolling within the screen */
+    position: relative; /* Needed for overlays */
+    z-index: 1; /* Ensure content is above base background */
+
+    /* Text Glow Effect */
+    text-shadow: 0 0 5px #00FF41, 0 0 10px rgba(0, 255, 65, 0.5);
+
+    /* Optional: Slightly blurry text */
+    /* filter: blur(0.5px); */
+}
+
+/* Add line breaks like a terminal */
+.screen p, .screen h1, .screen pre {
+    margin-bottom: 1em;
+}
+.screen pre {
+    white-space: pre-wrap; /* Allow wrapping but preserve whitespace */
+    word-wrap: break-word;
+}
+
+/* Scanlines Overlay */
+.screen::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+            to bottom,
+            rgba(18, 16, 16, 0) 50%,
+            rgba(0, 0, 0, 0.25) 50%
+    );
+    background-size: 100% 4px; /* Adjust line thickness (4px here) */
+    z-index: 2; /* Place scanlines above content */
+    pointer-events: none; /* Allow clicking through the overlay */
+    animation: scanlines 10s linear infinite; /* Subtle movement */
+}
+
+/* Screen Curvature & Vignette Effect */
+.screen::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+            ellipse at center,
+            rgba(0,0,0,0) 60%, /* Center is clear */
+            rgba(0,0,0,0.5) 100% /* Darker edges */
+    );
+    border-radius: 15px / 25px; /* Simulate glass curvature inside bezel */
+    box-shadow: inset 0 0 20px rgba(0, 255, 65, 0.3); /* Inner glow */
+    z-index: 3; /* Place curvature above scanlines */
+    pointer-events: none; /* Allow clicking through */
+    animation: flicker 0.15s infinite; /* Flicker effect */
+}
+
+
+/* Flicker Animation */
+@keyframes flicker {
+    0%   { opacity: 0.95; }
+    5%   { opacity: 0.85; }
+    10%  { opacity: 0.98; }
+    15%  { opacity: 0.90; }
+    20%  { opacity: 0.99; }
+    25%  { opacity: 0.93; }
+    30%  { opacity: 1.0; }
+    /* Add more steps for variation */
+    100% { opacity: 0.95; }
+}
+
+/* Subtle Scanline Movement */
+@keyframes scanlines {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 50px; } /* Adjust distance for speed */
+}
+
+/* Blinking Cursor */
+.cursor {
+    animation: blink 1s step-end infinite;
+    background-color: #00FF41; /* Match text color */
+    display: inline-block;
+    width: 0.6em; /* Adjust cursor size */
+    height: 1em;
+    margin-left: 2px;
+    vertical-align: bottom;
+    box-shadow: 0 0 5px #00FF41; /* Glow */
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Remove scrollbar default styling */
+.screen::-webkit-scrollbar {
+    width: 8px;
+}
+.screen::-webkit-scrollbar-track {
+    background: #111; /* Dark track */
+}
+.screen::-webkit-scrollbar-thumb {
+    background-color: #00FF41; /* Green thumb */
+    border-radius: 4px;
+    border: 1px solid #000;
+}

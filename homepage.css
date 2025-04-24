@@ -1,0 +1,136 @@
+/*Little bit of help from youtube videos, tutorials from lab sessions and various websites (w3schools and more)*/
+body {
+    font-family: sans-serif;
+    margin: 20px;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+}
+@media (max-width: 600px) {
+    .button-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .button-row > div {
+        width: 80%;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 1.2em;
+    }
+}
+
+#video-section{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+video{
+    width: 300%;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.container {
+    padding: 0px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+    gap: 20px;
+    width: 80%;
+    max-width: 960px;
+}
+
+.top-bar {
+    height: 20px;
+}
+
+.title {
+    text-align: center;
+    font-size: 1.5em;
+    padding: 10px 0;
+    color: white;
+    font-weight: bolder;
+}
+
+.button-row {
+    display: flex;
+    justify-content: space-around;
+}
+
+.button-row > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.button {
+    padding: 50px 50px;
+    background-color: yellow;
+    border: 2px solid #0000FF;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0 0 10px #0000FF;
+    animation: neonBorder 1.5s infinite alternate;
+    transition: transform 0.3s;
+    margin-top: 60px;
+    margin-bottom: 40px;
+}
+
+@keyframes neonBorder {
+    0% {
+        box-shadow: 0 0 5px #487bff, 0 0 10px #487bff;
+    }
+    100% {
+        box-shadow: 0 0 20px #FF007F, 0 0 30px #FF007F;
+    }
+}
+
+.name {
+    font-size: 0.9em;
+    color: white;
+    text-align: center;
+    font-weight: bolder;
+    padding-top: 5px;
+}
+
+.text-area {
+    padding: 15px;
+    text-align: center;
+    min-height: 100px;
+    font-size: 40px;
+}
+
+.text {
+    color: white;
+    font-weight: bolder;
+}
+
+.footer{
+    font-family: 'varsity';
+    font-size: 60px;
+    text-align: center;
+    color: white;
+}
+
+
+@media (max-width: 600px) {
+    .button-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .button-row > div {
+        width: 80%;
+    }
+}
